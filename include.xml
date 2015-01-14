@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+    <section if="ios">
+        <ndll name="openflmopub"/>
+        <dependency name="AdSupport.framework" />
+        <dependency name="AudioToolbox.framework" />
+        <dependency name="AVFoundation.framework" />
+        <dependency name="CoreGraphics.framework" />
+        <dependency name="CoreLocation.framework" />
+        <dependency name="CoreTelephony.framework" />
+        <dependency name="iAd.framework" />
+        <dependency name="MediaPlayer.framework" />
+        <dependency name="MessageUI.framework" />
+        <dependency name="MobileCoreServices.framework" />
+        <dependency name="PassKit.framework" />
+        <dependency name="QuartzCore.framework" />
+        <dependency name="Social.framework" />
+        <dependency name="StoreKit.framework" />
+        <dependency name="SystemConfiguration.framework" />
+        <dependency name="Twitter.framework" />
+        <dependency name="EventKit.framework" />
+        <dependency name="EventKitUI.framework" />
+        <ios linker-flags="-ObjC" />
+    </section>
+	
+	<!-- Use the following for an Android Java extension, not needed otherwise -->
+	
+	<dependency name="openflmopub" path="dependencies/android" if="android" />
+	<android extension="org.haxe.extension.OpenFLMopub" />
+	
+</project>

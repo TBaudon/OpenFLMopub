@@ -1,0 +1,172 @@
+<xml>
+	
+	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+	
+	<files id="common">
+		<compilerflag value="-Iinclude"/>
+		
+		<file name="common/ExternalInterface.cpp"/>
+	</files>
+    
+    <files id="iphone">
+        <compilerflag value="-Iinclude"/>
+        <compilerflag value="-Iios/MoPubSDK" />
+        
+        <file name="ios/OpenFLMopub.mm" />
+    </files>
+    
+    <files id="mopub">
+        <compilerflag value="-fobjc-arc"/>
+        
+        <compilerflag value="-Iios/MoPubSDK" />
+        
+        <compilerflag value="-Iios/MoPubSDK/Internal" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Common" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Common/AdAlerts" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/HTML" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Interstitials" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/MRAID" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Utility" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Utility/Categories" />
+        <compilerflag value="-Iios/MoPubSDK/Internal/Banners" />
+        
+        <compilerflag value="-Iios/MoPubSDK/Native Ads" />
+        <compilerflag value="-Iios/MoPubSDK/Native Ads/Internal" />
+        <compilerflag value="-Iios/MoPubSDK/Native Ads/Internal/Categories" />
+        
+        <file name="ios/MoPubSDK/MoPub.m"/>
+        <file name="ios/MoPubSDK/MPAdConversionTracker.m"/>
+        <file name="ios/MoPubSDK/MPAdView.m"/>
+        <file name="ios/MoPubSDK/MPBannerCustomEvent.m"/>
+        <file name="ios/MoPubSDK/MPConstants.m"/>
+        <file name="ios/MoPubSDK/MPInterstitialAdController.m"/>
+        <file name="ios/MoPubSDK/MPInterstitialCustomEvent.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/MPCoreInstanceProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/MPInstanceProvider.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Common/MPAdBrowserController.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPAdBrowserController.xib" />
+        <file name="ios/MoPubSDK/Internal/Common/MPAdConfiguration.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPAdDestinationDisplayAgent.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPAdServerCommunicator.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPAdServerURLBuilder.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPClosableView.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPFacebookKeywordProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPLastResortDelegate+EventKit.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPLastResortDelegate.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPProgressOverlayView.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/MPURLResolver.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Common/AdAlerts/MPAdAlertGestureRecognizer.m"/>
+        <file name="ios/MoPubSDK/Internal/Common/AdAlerts/MPAdAlertManager.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/HTML/MPAdWebView.m"/>
+        <file name="ios/MoPubSDK/Internal/HTML/MPAdWebViewAgent.m"/>
+        <file name="ios/MoPubSDK/Internal/HTML/MPHTMLBannerCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Internal/HTML/MPHTMLInterstitialCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Internal/HTML/MPHTMLInterstitialViewController.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Interstitials/MPBaseInterstitialAdapter.m"/>
+        <file name="ios/MoPubSDK/Internal/Interstitials/MPInterstitialAdManager.m"/>
+        <file name="ios/MoPubSDK/Internal/Interstitials/MPInterstitialCustomEventAdapter.m"/>
+        <file name="ios/MoPubSDK/Internal/Interstitials/MPInterstitialViewController.m"/>
+        <file name="ios/MoPubSDK/Internal/Interstitials/MPLegacyInterstitialCustomEventAdapter.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/MRAID/MPMRAIDBannerCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MPMRAIDInterstitialCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MPMRAIDInterstitialViewController.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRBridge.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRBundleManager.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRCalendarManager.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRCommand.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRConstants.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRController.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRError.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRExpandModalViewController.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRImageDownloader.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRNativeCommandHandler.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRPictureManager.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRProperty.m"/>
+        <file name="ios/MoPubSDK/Internal/MRAID/MRVideoPlayerManager.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Utility/MPAnalyticsTracker.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPError.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPGeolocationProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPGlobal.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPIdentityProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPInternalUtils.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPLogging.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPLogProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPReachability.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPSessionTracker.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPStoreKitProvider.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPTimer.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/MPUserInteractionGestureRecognizer.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Utility/Categories/NSHTTPURLResponse+MPAdditions.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/Categories/NSJSONSerialization+MPAdditions.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/Categories/NSURL+MPAdditions.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/Categories/UIViewController+MPAdditions.m"/>
+        <file name="ios/MoPubSDK/Internal/Utility/Categories/UIWebView+MPAdditions.m"/>
+        
+        <file name="ios/MoPubSDK/Internal/Banners/MPBannerAdManager.m"/>
+        <file name="ios/MoPubSDK/Internal/Banners/MPBannerCustomEventAdapter.m"/>
+        <file name="ios/MoPubSDK/Internal/Banners/MPBaseBannerAdapter.m"/>
+        <file name="ios/MoPubSDK/Internal/Banners/MPLegacyBannerCustomEventAdapter.m"/>
+        
+        <file name="ios/MoPubSDK/Native Ads/MPAdPositioning.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPClientAdPositioning.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPCollectionViewAdPlacer.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAd.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdConstants.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdData.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdError.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdRequest.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdRequestTargeting.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeAdSource.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPNativeCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPServerAdPositioning.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPStreamAdPlacementData.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPStreamAdPlacer.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPTableViewAdManager.m"/>
+        <file name="ios/MoPubSDK/Native Ads/MPTableViewAdPlacer.m"/>
+        
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPAdPlacerInvocation.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPDiskLRUCache.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPImageDownloadQueue.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPMoPubNativeAdAdapter.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPMoPubNativeCustomEvent.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPNativeAdSourceQueue.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPNativeAdUtils.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPNativeCache.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPNativePositionResponseDeserializer.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPNativePositionSource.m"/>
+        <file name="ios/MoPubSDK/Native Ads/Internal/MPTableViewCellImpressionTracker.m"/>
+
+        <file name="ios/MoPubSDK/Native Ads/Internal/Categories/UIView+MPNativeAd.m"/>
+
+    </files>
+	
+	<set name="SLIBEXT" value=".lib" if="windows"/>
+	<set name="SLIBEXT" value=".a" unless="windows"/>
+	<set name="SLIBEXT" value=".so" if="webos"/>
+	
+	<set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
+	
+	<target id="NDLL" output="${LIBPREFIX}openflmopub${MSVC_LIB_VERSION}${DEBUGEXTRA}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+		
+		<outdir name="../ndll/${BINDIR}"/>
+		<ext value=".ndll" if="windows || mac || linux"/>
+		<files id="common"/>
+        <files id="mopub" />
+        <files id="iphone" if="iphone" />
+	</target>
+	
+	<target id="default">
+		
+		<target id="NDLL"/>
+		
+	</target>
+	
+</xml>
