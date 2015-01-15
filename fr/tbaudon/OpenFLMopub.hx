@@ -34,12 +34,17 @@ class OpenFLMopub {
 		openflmopub_hideAd();
 	}
 
+	public static function showInterstitial(){
+		openflmopub_showInterstitial();
+	}
+
 	#if ios
 	private static var openflmopub_init = Lib.load ("openflmopub", "openflmopub_init", 0);
 	private static var openflmopub_initBanner = Lib.load ("openflmopub", "openflmopub_initBanner", 1);
 	private static var openflmopub_initInterstitial = Lib.load("openflmopub", "openflmopub_initInterstitial", 1);
 	private static var openflmopub_showAd = Lib.load("openflmopub", "openflmopub_showAd", 0);
 	private static var openflmopub_hideAd = Lib.load("openflmopub", "openflmopub_hideAd", 0);
+	private static var openflmopub_showInterstitial = Lib.load("openflmopub", "openflmopub_showInterstitial", 0);
 	#end
 
 	#if android

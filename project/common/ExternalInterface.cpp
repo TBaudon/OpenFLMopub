@@ -45,6 +45,12 @@ static void openflmopub_hideAd(){
 
 DEFINE_PRIM(openflmopub_hideAd, 0);
 
+static void openflmopub_showInterstitial(){
+    showInterstitial();
+}
+
+DEFINE_PRIM(openflmopub_showInterstitial, 0);
+
 extern "C" {
 	void openflmopub_main () {
 		val_int(0); // Fix Neko init

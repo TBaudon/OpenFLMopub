@@ -23,6 +23,8 @@
         <dependency name="EventKitUI.framework" />
         <ios linker-flags="-ObjC" />
     </section>
+    
+    <template path="templates" />
 	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	

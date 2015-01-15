@@ -9,6 +9,7 @@ namespace openflmopub {
     void initInterstitial(const char* AdId);
     void showAd();
     void hideAd();
+    void showInterstitial();
 	
 }
 
