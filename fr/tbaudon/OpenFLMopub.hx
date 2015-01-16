@@ -38,6 +38,18 @@ class OpenFLMopub {
 		openflmopub_showInterstitial();
 	}
 
+	public static function hideInterstitial(){
+		openflmopub_hideInterstitial();
+	}
+
+	public static function initBannerEvents(onBannerLoaded : Dynamic, onBannerError : Dynamic ) {
+		openflmopub_initBannerEvents(onBannerLoaded, onBannerError);
+	}
+
+	public static function initInterstitialEvents(onInterstitialLoaded : Dynamic, onInterstitialError : Dynamic, onInterstitialClosed : Dynamic) {
+		openflmopub_initInterstitialEvents(onInterstitialLoaded, onInterstitialError, onInterstitialClosed);
+	}
+
 	#if ios
 	private static var openflmopub_init = Lib.load ("openflmopub", "openflmopub_init", 0);
 	private static var openflmopub_initBanner = Lib.load ("openflmopub", "openflmopub_initBanner", 1);
@@ -45,6 +57,9 @@ class OpenFLMopub {
 	private static var openflmopub_showAd = Lib.load("openflmopub", "openflmopub_showAd", 0);
 	private static var openflmopub_hideAd = Lib.load("openflmopub", "openflmopub_hideAd", 0);
 	private static var openflmopub_showInterstitial = Lib.load("openflmopub", "openflmopub_showInterstitial", 0);
+	private static var openflmopub_hideInterstitial = Lib.load("openflmopub", "openflmopub_hideInterstitial", 0);
+	private static var openflmopub_initBannerEvents = Lib.load("openflmopub", "openflmopub_initBannerEvents", 2);
+	private static var openflmopub_initInterstitialEvents = Lib.load("openflmopub", "openflmopub_initInterstitialEvents", 3);
 	#end
 
 	#if android

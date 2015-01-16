@@ -13,6 +13,40 @@
 
 using namespace openflmopub;
 
+AutoGCRoot *eval_interstitialLoaded = 0;
+AutoGCRoot *eval_interstitialError = 0;
+AutoGCRoot *eval_interstitialClosed = 0;
+
+AutoGCRoot *eval_bannerLoaded = 0;
+AutoGCRoot *eval_bannerError = 0;
+
+extern "C" {
+    void interstitialLoaded(){
+        if(eval_interstitialLoaded != 0)
+            val_call0(eval_interstitialLoaded->get());
+    }
+    
+    void interstitialError(){
+        if(eval_interstitialError != 0)
+            val_call0(eval_interstitialError->get());
+    }
+    
+    void interstitialClosed(){
+        if(eval_interstitialClosed != 0)
+            val_call0(eval_interstitialClosed->get());
+    }
+    
+    void bannerLoaded(){
+        if(eval_bannerLoaded != 0)
+            val_call0(eval_bannerLoaded->get());
+    }
+    
+    void bannerError(){
+        if(eval_bannerError != 0)
+            val_call0(eval_bannerError->get());
+    }
+}
+
 static void openflmopub_init() {
 	init();
 }
@@ -50,6 +84,27 @@ static void openflmopub_showInterstitial(){
 }
 
 DEFINE_PRIM(openflmopub_showInterstitial, 0);
+
+static void openflmopub_initBannerEvents(value onLoaded, value onError){
+    if(onLoaded != NULL)
+        eval_bannerLoaded = new AutoGCRoot(onLoaded);
+    
+    if(onError != NULL)
+        eval_bannerError = new AutoGCRoot(onError);
+}
+DEFINE_PRIM(openflmopub_initBannerEvents, 2);
+
+static void openflmopub_initInterstitialEvents(value onLoaded, value onError, value onClosed){
+    if(onLoaded != NULL)
+        eval_interstitialLoaded = new AutoGCRoot(onLoaded);
+    
+    if(onError != NULL)
+        eval_interstitialError = new AutoGCRoot(onError);
+    
+    if(onClosed != NULL)
+        eval_interstitialClosed = new AutoGCRoot(onClosed);
+}
+DEFINE_PRIM(openflmopub_initInterstitialEvents, 3);
 
 extern "C" {
 	void openflmopub_main () {

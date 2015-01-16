@@ -10,6 +10,7 @@ namespace openflmopub {
     void showAd();
     void hideAd();
     void showInterstitial();
+    void hideInterstitial();
 	
 }
 

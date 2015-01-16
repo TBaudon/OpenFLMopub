@@ -11,30 +11,50 @@
 #import "MPInterstitialAdController.h"
 #include "Utils.h"
 
-@interface OpenFLMopubDelegate : UIViewController <MPAdViewDelegate>
+extern "C" {
+    void interstitialLoaded();
+    void interstitialError();
+    void interstitialClosed();
+    
+    void bannerLoaded();
+    void bannerError();
+}
 
-@property (nonatomic, retain) MPAdView *adView;
-@property (nonatomic) UIViewController *rootView;
+@interface InterstitialDelegate : UIViewController <MPInterstitialAdControllerDelegate>
+
 @property (nonatomic, retain) MPInterstitialAdController *interstitial;
+@property (nonatomic, retain) UIViewController *rootView;
 
--(void)initBanner: (NSString*) adId;
--(void)initInterstitial: (NSString*) adId;
--(void)showAd;
--(void)hideAd;
+-(void)initWithAdUnit : (NSString*) AdId;
+-(void)show;
+-(void)hide;
 
 @end
 
-@implementation OpenFLMopubDelegate
+@interface BannerDelegate : UIViewController <MPAdViewDelegate>
+
+@property (nonatomic, retain) MPAdView *adView;
+@property (nonatomic, retain) UIViewController *rootView;
+
+-(void)initWithAdUid : (NSString*) AdId;
+-(void)show;
+-(void)hide;
+
+@end
+
+/** IMPLEMENTATIONS **/
+
+@implementation BannerDelegate
 
 -(void)viewDidLoad {
-    NSLog(@"View loaded");
+    NSLog(@"Banner's view loaded");
     self.rootView = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    [self.rootView.view  addSubview: self.view];
+    [self.rootView.view addSubview: self.view];
     [super viewDidLoad];
 }
 
--(void)initBanner: (NSString*) adId {
-    self.adView = [[[MPAdView alloc] initWithAdUnitId:adId size:MOPUB_BANNER_SIZE] autorelease];
+-(void)initWithAdUid:(NSString *)AdId {
+    self.adView = [[[MPAdView alloc] initWithAdUnitId: AdId size:MOPUB_BANNER_SIZE] autorelease];
     self.adView.delegate = self;
     CGRect frame = self.adView.frame;
     CGSize size = [self.adView adContentViewSize];
@@ -43,22 +63,12 @@
     [self.adView loadAd];
 }
 
--(void)showAd {
+-(void)show {
     [self.view addSubview: self.adView];
 }
 
--(void)hideAd {
+-(void)hide {
     [self.adView removeFromSuperview];
-}
-
--(void)showInterstitial{
-    if(self.interstitial.ready)
-        [self.interstitial showFromViewController:self.rootView];
-}
-
--(void)initInterstitial:(NSString *)adId {
-    self.interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId: adId];
-    [self.interstitial loadAd];
 }
 
 -(void)dealloc{
@@ -66,41 +76,86 @@
     [super dealloc];
 }
 
-#pragma mark - <MPAdViewDelegate>
-- (UIViewController*)viewControllerForPresentingModalView{
+-(void)adViewDidLoadAd:(MPAdView *)view {
+    bannerLoaded();
+}
+
+-(void)adViewDidFailToLoadAd:(MPAdView *)view {
+    bannerError();
+}
+
+-(UIViewController*)viewControllerForPresentingModalView {
     return self;
+}
+
+@end
+
+@implementation InterstitialDelegate
+
+-(void)initWithAdUnit:(NSString *)AdId {
+    self.rootView = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    self.interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId: AdId];
+    self.interstitial.delegate = self;
+    [self.interstitial loadAd];
+}
+
+-(void)show {
+    if(self.interstitial.ready)
+        [self.interstitial showFromViewController:self.rootView];
+}
+
+-(void)hide {
+    
+}
+
+-(void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial {
+    interstitialLoaded();
+}
+
+-(void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial {
+    interstitialClosed();
+}
+
+-(void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial {
+    interstitialError();
 }
 
 @end
 
 namespace openflmopub {
     
-    static OpenFLMopubDelegate* mopubDelegate;
+    static BannerDelegate* banners;
+    static InterstitialDelegate* interstitials;
     
     void init(){
-        mopubDelegate = [OpenFLMopubDelegate alloc];
+        banners = [BannerDelegate alloc];
+        interstitials = [InterstitialDelegate alloc];
     }
     
     void initBanner(const char* AdId){
         NSString* mopubAdId = [[NSString alloc] initWithUTF8String: AdId];
-        [mopubDelegate initBanner: mopubAdId];
+        [banners initWithAdUid: mopubAdId];
     }
     
     void initInterstitial(const char* AdId){
         NSString* mopubAdId = [[NSString alloc] initWithUTF8String: AdId];
-        [mopubDelegate initInterstitial: mopubAdId];
+        [interstitials initWithAdUnit: mopubAdId];
     }
     
     void showAd(){
-        [mopubDelegate showAd];
+        [banners show];
     }
     
     void hideAd(){
-        [mopubDelegate hideAd];
+        [banners hide];
     }
     
     void showInterstitial(){
-        [mopubDelegate showInterstitial];
+        [interstitials show];
+    }
+    
+    void hideInterstitial(){
+        [interstitials hide];
     }
     
 };
