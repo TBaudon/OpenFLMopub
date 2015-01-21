@@ -11,7 +11,7 @@ import openfl.utils.JNI;
 #end
 
 
-class OpenFLMopub {
+class Mopub {
 	
 	
 	public static function init(){
@@ -48,6 +48,18 @@ class OpenFLMopub {
 
 	public static function initInterstitialEvents(onInterstitialLoaded : Dynamic, onInterstitialError : Dynamic, onInterstitialClosed : Dynamic) {
 		openflmopub_initInterstitialEvents(onInterstitialLoaded, onInterstitialError, onInterstitialClosed);
+	}
+
+	public static function removeBannerEvents(){
+		initBannerEvents(nullFunc, nullFunc);
+	}
+
+	public static function removeInterstitialEvents(){
+		initInterstitialEvents(nullFunc, nullFunc, nullFunc);
+	}
+
+	static function nullFunc(){
+		trace("UnhandledmopubCallBack");
 	}
 
 	#if ios

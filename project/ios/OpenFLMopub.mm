@@ -65,10 +65,12 @@ extern "C" {
 
 -(void)show {
     [self.view addSubview: self.adView];
+    [self.adView startAutomaticallyRefreshingContents];
 }
 
 -(void)hide {
     [self.adView removeFromSuperview];
+    [self.adView stopAutomaticallyRefreshingContents];
 }
 
 -(void)dealloc{

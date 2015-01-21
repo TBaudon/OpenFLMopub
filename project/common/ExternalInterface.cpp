@@ -85,6 +85,12 @@ static void openflmopub_showInterstitial(){
 
 DEFINE_PRIM(openflmopub_showInterstitial, 0);
 
+static void openflmopub_hideInterstitial(){
+    hideInterstitial();
+}
+
+DEFINE_PRIM(openflmopub_hideInterstitial, 0);
+
 static void openflmopub_initBannerEvents(value onLoaded, value onError){
     if(onLoaded != NULL)
         eval_bannerLoaded = new AutoGCRoot(onLoaded);
