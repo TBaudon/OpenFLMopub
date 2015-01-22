@@ -67,17 +67,19 @@ static void openflmopub_initInterstitial(value AdId){
 
 DEFINE_PRIM(openflmopub_initInterstitial, 1);
 
-static void openflmopub_showAd(){
-	showAd();
+static void openflmopub_showAd(value id){
+    int convertedId = val_int(id);
+	showAd(convertedId);
 }
 
-DEFINE_PRIM(openflmopub_showAd, 0);
+DEFINE_PRIM(openflmopub_showAd, 1);
 
-static void openflmopub_hideAd(){
-	hideAd();
+static void openflmopub_hideAd(value id){
+    int convertedId = val_int(id);
+	hideAd(convertedId);
 }
 
-DEFINE_PRIM(openflmopub_hideAd, 0);
+DEFINE_PRIM(openflmopub_hideAd, 1);
 
 static void openflmopub_showInterstitial(){
     showInterstitial();

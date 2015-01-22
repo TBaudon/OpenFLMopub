@@ -10,6 +10,7 @@
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 #include "Utils.h"
+#include <vector>
 
 extern "C" {
     void interstitialLoaded();
@@ -65,12 +66,10 @@ extern "C" {
 
 -(void)show {
     [self.view addSubview: self.adView];
-    [self.adView startAutomaticallyRefreshingContents];
 }
 
 -(void)hide {
     [self.adView removeFromSuperview];
-    [self.adView stopAutomaticallyRefreshingContents];
 }
 
 -(void)dealloc{
@@ -126,17 +125,20 @@ extern "C" {
 
 namespace openflmopub {
     
-    static BannerDelegate* banners;
+    static std::vector<BannerDelegate*> banners;
+    //static BannerDelegate* banners;
     static InterstitialDelegate* interstitials;
     
     void init(){
-        banners = [BannerDelegate alloc];
+        //banners = [BannerDelegate alloc];
         interstitials = [InterstitialDelegate alloc];
     }
     
     void initBanner(const char* AdId){
         NSString* mopubAdId = [[NSString alloc] initWithUTF8String: AdId];
-        [banners initWithAdUid: mopubAdId];
+        BannerDelegate* banner = [BannerDelegate alloc];
+        [banner initWithAdUid: mopubAdId];
+        banners.push_back(banner);
     }
     
     void initInterstitial(const char* AdId){
@@ -144,12 +146,14 @@ namespace openflmopub {
         [interstitials initWithAdUnit: mopubAdId];
     }
     
-    void showAd(){
-        [banners show];
+    void showAd(int id){
+        BannerDelegate* banner = banners[id];
+        [banner show];
     }
     
-    void hideAd(){
-        [banners hide];
+    void hideAd(int id){
+        BannerDelegate* banner = banners[id];
+        [banner hide];
     }
     
     void showInterstitial(){
