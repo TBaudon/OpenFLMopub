@@ -29,6 +29,12 @@
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
 	<dependency name="openflmopub" path="dependencies/android" if="android" />
-	<android extension="org.haxe.extension.OpenFLMopub" />
+	<android extension="fr.tbaudon.OpenFLMopub" />
+	<android target-sdk-version="19" />
+	<android permission = "android.permission.INTERNET" />
+	<android permission = "android.permission.ACCESS_NETWORK_STATE" />
+	<android permission = "android.permission.ACCESS_COARSE_LOCATION" />
+	<android permission = "android.permission.WRITE_EXTERNAL_STORAGE" />
+	<android permission = "android.permission.READ_PHONE_STATE" />
 	
 </project>

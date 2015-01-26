@@ -21,8 +21,8 @@ class Mopub {
 	}
 
 	public static function initBanner(AdId : String){
-		openflmopub_initBanner(AdId);
 		bannersId.push(AdId);
+		openflmopub_initBanner(AdId);
 	}
 
 	public static function initInterstitial(AdId : String){
@@ -46,23 +46,44 @@ class Mopub {
 	}
 
 	public static function hideInterstitial(){
-		openflmopub_hideInterstitial();
+	/*	openflmopub_hideInterstitial();*/
 	}
 
 	public static function initBannerEvents(onBannerLoadedCallBack : Dynamic, onBannerError : Dynamic ) {
-		openflmopub_initBannerEvents(onBannerLoadedCallBack, onBannerError);
+	/*	openflmopub_initBannerEvents(onBannerLoadedCallBack, onBannerError);*/
 	}
 
-	public static function initInterstitialEvents(onInterstitialLoaded : Dynamic, onInterstitialError : Dynamic, onInterstitialClosed : Dynamic) {
+	public static function initInterstitialEvents(handler : Dynamic,  onInterstitialLoaded : Dynamic, onInterstitialError : Dynamic, onInterstitialClosed : Dynamic) {
+		#if ios
 		openflmopub_initInterstitialEvents(onInterstitialLoaded, onInterstitialError, onInterstitialClosed);
+		#elseif android
+		var onLoadedStr : String = "";
+		var onErrorStr : String = "";
+		var onClosedStr : String = "";
+		
+		for (field in Type.getInstanceFields(Type.getClass(handler))){
+			if (Reflect.field(handler, field) == onInterstitialLoaded)
+				onLoadedStr = field;
+			if (Reflect.field(handler, field) == onInterstitialError)
+				onErrorStr = field;
+			if (Reflect.field(handler, field) == onInterstitialClosed)
+				onClosedStr = field;
+		}
+		
+		openflmopub_initInterstitialEvents(handler, onLoadedStr, onErrorStr, onClosedStr);
+		#end
 	}
 
 	public static function removeBannerEvents(){
-		initBannerEvents(nullFunc, nullFunc);
+	/*	initBannerEvents(nullFunc, nullFunc);*/
 	}
 
-	public static function removeInterstitialEvents(){
-		initInterstitialEvents(nullFunc, nullFunc, nullFunc);
+	public static function removeInterstitialEvents() {
+		#if ios
+		initInterstitialEvents(null, nullFunc, nullFunc, nullFunc);
+		#elseif android
+		openflmopub_removeIntertitialEvent();
+		#end
 	}
 
 	static function nullFunc(){
@@ -79,10 +100,19 @@ class Mopub {
 	private static var openflmopub_hideInterstitial = Lib.load("openflmopub", "openflmopub_hideInterstitial", 0);
 	private static var openflmopub_initBannerEvents = Lib.load("openflmopub", "openflmopub_initBannerEvents", 2);
 	private static var openflmopub_initInterstitialEvents = Lib.load("openflmopub", "openflmopub_initInterstitialEvents", 3);
-	#end
-
-	#if android
-	private static var openflmopub_sample_method_jni = JNI.createStaticMethod ("org.haxe.extension.OpenFLMopub", "sampleMethod", "(I)I");
+	#elseif android
+	private static var openflmopub_init = JNI.createStaticMethod ("fr.tbaudon.OpenFLMopub", "init", "()V");
+	private static var openflmopub_initBanner = JNI.createStaticMethod ("fr.tbaudon.OpenFLMopub", "initBanner", "(Ljava/lang/String;)V");
+	private static var openflmopub_initInterstitial = JNI.createStaticMethod("fr.tbaudon.OpenFLMopub", "initInterstitial", "(Ljava/lang/String;)V");
+	private static var openflmopub_initInterstitialEvents = JNI.createStaticMethod("fr.tbaudon.OpenFLMopub", "initInterstitialEvent", "(Lorg/haxe/lime/HaxeObject;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+	private static var openflmopub_removeIntertitialEvent = JNI.createStaticMethod("fr.tbaudon.OpenFLMopub", "removeIntertitialEvent", "()V");
+	private static var openflmopub_showInterstitial = JNI.createStaticMethod("fr.tbaudon.OpenFLMopub", "showInterstitial", "()V");
+	private static var openflmopub_showAd = JNI.createStaticMethod ("fr.tbaudon.OpenFLMopub", "showAd", "(I)V");
+	private static var openflmopub_hideAd = JNI.createStaticMethod ("fr.tbaudon.OpenFLMopub", "hideAd", "(I)V");
+	/*
+	private static var openflmopub_hideInterstitial = JNI.createStaticMethod("fr.tbaudon.OpenFLMopub", "hideInterstitial", "()V");
+	private static var openflmopub_initBannerEvents = null;
+	*/
 	#end
 	
 	

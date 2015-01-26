@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="fr.tbaudon.openflmopub" >
-	
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		package="com.mopub.mobileads"
+		android:versionCode="1"
+		android:versionName="1.0">
 	<uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="19"/>s
-	
+        android:targetSdkVersion="19"/>
+		
 	<application>
 		
 		<activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
@@ -16,5 +18,4 @@
 		<activity android:name="com.millennialmedia.android.VideoPlayer" android:configChanges="keyboardHidden|orientation|keyboard" />
 		
 	</application>
-	
 </manifest>
