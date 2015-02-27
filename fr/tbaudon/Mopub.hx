@@ -13,36 +13,62 @@ import openfl.utils.JNI;
 
 class Mopub {
 
-	static var bannersId : Array<String>;
+	static var mBannersId : Array<String>;
+	
+	static var mEnabled : Bool = true;
+	
+	static var mOnInterstitialLoaded : Dynamic;
+	static var mOnInterstitialError : Dynamic;
+	static var mOnInterstitialClosed : Dynamic;
 
 	public static function init(){
 		openflmopub_init();
-		bannersId = new Array<String>();
+		mBannersId = new Array<String>();
+	}
+	
+	public static function enable() {
+		mEnabled = true;
+	}
+	
+	public static function disable() {
+		mEnabled = false;
 	}
 
-	public static function initBanner(AdId : String){
-		bannersId.push(AdId);
-		openflmopub_initBanner(AdId);
+	public static function initBanner(AdId : String) {
+		if(mEnabled) {
+			mBannersId.push(AdId);
+			openflmopub_initBanner(AdId);
+		}
 	}
 
-	public static function initInterstitial(AdId : String){
-		openflmopub_initInterstitial(AdId);
+	public static function initInterstitial(AdId : String) {
+		if (mEnabled) {
+			openflmopub_initInterstitial(AdId);
+		}
+		//else
+			//mOnInterstitialClosed();
 	}
 
-	public static function showAd(AdId : String){
-		var id : Int = bannersId.indexOf(AdId);
-		if(id != -1)
-			openflmopub_showAd(id);
+	public static function showAd(AdId : String) {
+		if(mEnabled) {
+			var id : Int = mBannersId.indexOf(AdId);
+			if(id != -1)
+				openflmopub_showAd(id);
+		}
 	}
 
-	public static function hideAd(AdId : String){
-		var id : Int = bannersId.indexOf(AdId);
-		if(id != -1)
-			openflmopub_hideAd(id);
+	public static function hideAd(AdId : String) {
+		if(mEnabled){
+			var id : Int = mBannersId.indexOf(AdId);
+			if(id != -1)
+				openflmopub_hideAd(id);
+		}
 	}
 
-	public static function showInterstitial(){
-		openflmopub_showInterstitial();
+	public static function showInterstitial() {
+		if(mEnabled){
+			openflmopub_showInterstitial();
+		}
 	}
 
 	public static function hideInterstitial(){
@@ -54,24 +80,33 @@ class Mopub {
 	}
 
 	public static function initInterstitialEvents(handler : Dynamic,  onInterstitialLoaded : Dynamic, onInterstitialError : Dynamic, onInterstitialClosed : Dynamic) {
-		#if ios
-		openflmopub_initInterstitialEvents(onInterstitialLoaded, onInterstitialError, onInterstitialClosed);
-		#elseif android
-		var onLoadedStr : String = "";
-		var onErrorStr : String = "";
-		var onClosedStr : String = "";
 		
-		for (field in Type.getInstanceFields(Type.getClass(handler))){
-			if (Reflect.field(handler, field) == onInterstitialLoaded)
-				onLoadedStr = field;
-			if (Reflect.field(handler, field) == onInterstitialError)
-				onErrorStr = field;
-			if (Reflect.field(handler, field) == onInterstitialClosed)
-				onClosedStr = field;
-		}
+		mOnInterstitialLoaded = onInterstitialLoaded;
+		mOnInterstitialError = onInterstitialError;
+		mOnInterstitialClosed = onInterstitialClosed;
 		
-		openflmopub_initInterstitialEvents(handler, onLoadedStr, onErrorStr, onClosedStr);
-		#end
+		if(mEnabled){
+		
+			#if ios
+			openflmopub_initInterstitialEvents(onInterstitialLoaded, onInterstitialError, onInterstitialClosed);
+			#elseif android
+			var onLoadedStr : String = "";
+			var onErrorStr : String = "";
+			var onClosedStr : String = "";
+			
+			for (field in Type.getInstanceFields(Type.getClass(handler))){
+				if (Reflect.field(handler, field) == onInterstitialLoaded)
+					onLoadedStr = field;
+				if (Reflect.field(handler, field) == onInterstitialError)
+					onErrorStr = field;
+				if (Reflect.field(handler, field) == onInterstitialClosed)
+					onClosedStr = field;
+			}
+			
+			openflmopub_initInterstitialEvents(handler, onLoadedStr, onErrorStr, onClosedStr);
+			#end
+		}else
+			mOnInterstitialClosed();
 	}
 
 	public static function removeBannerEvents(){
